@@ -18,53 +18,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.ContentValues.TAG;
 
-public class FetchNews{
+public class FetchNews {
 
     private static final String BASE_URL = "https://newsapi.org/v1/";
 
-    private RealmList<Article> newsList = new RealmList<>();
+    private static NewsApi newsApi;
 
-    private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
+    public static NewsApi getNewsApi() {
+        if (newsApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            newsApi = retrofit.create(NewsApi.class);
+            Log.d(TAG, "getNewsApi: Creating new retrofit instance...");
+        } else {
+            Log.d(TAG, "getNewsApi: Instance already exists");
+        }
 
-    private NewsApi newsApi = retrofit.create(NewsApi.class);
-    private Call<News> call = newsApi.getNews();
-
-    public interface RetrofitListener {
-        void onCompletion(RealmList<Article> list);
-    }
-
-    public void enqueueNews(final RetrofitListener retrofitListener) {
-        call.enqueue(new Callback<News>() {
-            @Override
-            public void onResponse(Call<News> call, Response<News> response) {
-                if (!response.isSuccessful()) {
-                    Log.d(TAG, "onResponse: Response code: " + response.code());
-                } else {
-                    try {
-                        News news = response.body();
-
-                        Log.d(TAG, "onResponse: News status " + news.getStatus());
-                        Log.d(TAG, "onResponse: Source " + news.getSource());
-                        for (Article r : news.getArticles()) {
-                            newsList.add(r);
-                            Log.d(TAG, "onResponse: ==> " + r.toString());
-                        }
-                    }catch(NullPointerException e) {
-                        e.printStackTrace();
-                    }
-                }
-                retrofitListener.onCompletion(newsList);
-            }
-
-
-            @Override
-            public void onFailure(Call<News> call, Throwable t) {
-                Log.d(TAG, "onFailure: Enqueue failed");
-                t.printStackTrace();
-            }
-        });
+        return newsApi;
     }
 }

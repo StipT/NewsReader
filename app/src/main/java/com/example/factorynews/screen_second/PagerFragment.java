@@ -18,6 +18,8 @@ import com.squareup.picasso.Picasso;
  */
 public class PagerFragment extends Fragment {
 
+    public static final String EXTRA_ARTICLE_ITEM = "EXTRA_ARTICLE_ITEM";
+
     private TextView pagerTitle;
     private TextView pagerDescription;
     private ImageView pagerImage;
@@ -26,12 +28,20 @@ public class PagerFragment extends Fragment {
     public PagerFragment() {
     }
 
+    public static PagerFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        PagerFragment fragment = new PagerFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Article articleItem = (Article) getArguments().getSerializable("articleItem");
+        Article articleItem = (Article) getArguments().getSerializable(EXTRA_ARTICLE_ITEM);
         View view = inflater.inflate(R.layout.fragment_pager, container, false);
         pagerTitle = view.findViewById(R.id.pager_title);
         pagerDescription = view.findViewById(R.id.pager_description);

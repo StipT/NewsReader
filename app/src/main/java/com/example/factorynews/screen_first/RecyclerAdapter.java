@@ -22,6 +22,7 @@ import static android.content.ContentValues.TAG;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ArticleViewHolder> {
     private List<Article> articleList;
     private Context context;
+    public static final String EXTRA_ITEM_POSITION = "EXTRA_ITEM_POSITION";
 
 
     public RecyclerAdapter(List<Article> articleList, Context context) {
@@ -53,7 +54,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Articl
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, SecondActivity.class);
-                intent.putExtra("ItemPosition", articleViewHolder.getAdapterPosition());
+                intent.putExtra("EXTRA_ITEM_POSITION", articleViewHolder.getAdapterPosition());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }

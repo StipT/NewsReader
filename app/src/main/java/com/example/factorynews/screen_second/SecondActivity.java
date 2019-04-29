@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import com.example.factorynews.R;
 import com.example.factorynews.model.Article;
+import com.example.factorynews.screen_first.RecyclerAdapter;
+
 import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -31,7 +33,7 @@ public class SecondActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: " + articleList.toString());
         viewPager.setAdapter(new CustomPagerAdapter(getSupportFragmentManager(),
                 getApplicationContext(), articleList));
-        viewPager.setCurrentItem(getIntent().getIntExtra("ItemPosition", 0));
+        viewPager.setCurrentItem(getIntent().getIntExtra(RecyclerAdapter.EXTRA_ITEM_POSITION, 0));
 
     }
 }

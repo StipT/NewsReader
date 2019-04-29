@@ -28,7 +28,7 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
         PagerFragment pagerFragment = new PagerFragment();
         Bundle bundle = new Bundle();
         Article articleItem = articleList.get(i);
-        bundle.putSerializable("articleItem", articleItem);
+        bundle.putSerializable(PagerFragment.EXTRA_ARTICLE_ITEM, articleItem);
         pagerFragment.setArguments(bundle);
         return pagerFragment;
     }
