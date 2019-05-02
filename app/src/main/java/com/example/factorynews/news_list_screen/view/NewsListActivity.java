@@ -1,5 +1,6 @@
 package com.example.factorynews.news_list_screen.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +11,10 @@ import android.widget.ProgressBar;
 
 import com.example.factorynews.R;
 import com.example.factorynews.model.data.Article;
+import com.example.factorynews.news_list_screen.OnClickedListener;
 import com.example.factorynews.news_list_screen.presenter.NewsListPresenterImpl;
 import com.example.factorynews.news_list_screen.recycler_adapter.RecyclerAdapter;
+import com.example.factorynews.single_article_screen.view.SingleArticleActivity;
 
 import java.util.List;
 
@@ -24,7 +27,6 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
     private RecyclerView recyclerView;
     private RecyclerAdapter recyclerAdapter;
     private ProgressBar progressBar;
-
 
     @Override
     public void showProgressBar() {
@@ -42,7 +44,12 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
         if (recyclerAdapter == null) {
             recyclerView = findViewById(R.id.recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerAdapter = new RecyclerAdapter();
+            recyclerAdapter = new RecyclerAdapter(new OnClickedListener() {
+                @Override
+                public void onClicked(int position) {
+                    goToSingleArticleActivity(position);
+                }
+            });
             recyclerView.setAdapter(recyclerAdapter);
         }
     }
@@ -53,7 +60,11 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
     }
 
     @Override
-    public void goToSingleArticleActivity() {
+    public void goToSingleArticleActivity(int position) {
+        Intent intent = new Intent(this, SingleArticleActivity.class);
+        intent.putExtra(EXTRA_ITEM_POSITION, position);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     @Override

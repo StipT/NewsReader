@@ -9,21 +9,24 @@ import android.view.ViewGroup;
 
 import com.example.factorynews.R;
 import com.example.factorynews.model.data.Article;
+import com.example.factorynews.news_list_screen.OnClickedListener;
 
 import java.util.List;
 
 
 public class RecyclerAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     private List<Article> articleList;
+    private OnClickedListener onClickedListener;
 
-    public RecyclerAdapter() {
+    public RecyclerAdapter(OnClickedListener onClickedListener) {
+        this.onClickedListener = onClickedListener;
     }
 
     @NonNull
     @Override
     public ArticleViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_item, viewGroup, false);
-        return new ArticleViewHolder(view);
+        return new ArticleViewHolder(view, onClickedListener);
     }
 
     @Override

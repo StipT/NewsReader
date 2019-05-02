@@ -14,7 +14,7 @@ public interface NewsListView {
 
     void updateItems(List<Article> articleList);
 
-    void goToSingleArticleActivity();
+    void goToSingleArticleActivity(int position);
 
     void showDialog();
 
