@@ -1,6 +1,6 @@
 package com.example.factorynews.network;
 
-import com.example.factorynews.model.News;
+import com.example.factorynews.model.data.News;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

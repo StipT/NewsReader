@@ -1,6 +1,7 @@
-package com.example.factorynews.model;
+package com.example.factorynews.model.data;
 
 import java.util.List;
+
 import io.realm.RealmList;
 
 public class News {

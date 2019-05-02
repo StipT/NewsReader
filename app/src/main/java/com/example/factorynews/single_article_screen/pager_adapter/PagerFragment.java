@@ -1,4 +1,4 @@
-package com.example.factorynews.screen_second;
+package com.example.factorynews.single_article_screen.pager_adapter;
 
 
 import android.os.Bundle;
@@ -8,9 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.example.factorynews.R;
-import com.example.factorynews.model.Article;
+import com.example.factorynews.model.data.Article;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 
 /**
@@ -28,12 +31,13 @@ public class PagerFragment extends Fragment {
     public PagerFragment() {
     }
 
-    public static PagerFragment newInstance() {
+    public static PagerFragment newInstance(ArrayList<Article> articleList, int i) {
 
-        Bundle args = new Bundle();
-
+        Bundle bundle = new Bundle();
         PagerFragment fragment = new PagerFragment();
-        fragment.setArguments(args);
+        Article articleItem = articleList.get(i);
+        bundle.putSerializable(PagerFragment.EXTRA_ARTICLE_ITEM, articleItem);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -46,11 +50,10 @@ public class PagerFragment extends Fragment {
         pagerTitle = view.findViewById(R.id.pager_title);
         pagerDescription = view.findViewById(R.id.pager_description);
         pagerImage = view.findViewById(R.id.pager_image);
+
         pagerTitle.setText(articleItem.getTitle());
         pagerDescription.setText(articleItem.getDescription());
         Picasso.with(getContext()).load(articleItem.getUrlToImage()).into(pagerImage);
         return view;
-
     }
-
 }

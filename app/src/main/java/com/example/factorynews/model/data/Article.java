@@ -1,4 +1,4 @@
-package com.example.factorynews.model;
+package com.example.factorynews.model.data;
 
 import java.io.Serializable;
 import java.util.Date;

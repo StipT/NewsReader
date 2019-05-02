@@ -3,16 +3,6 @@ package com.example.factorynews.network;
 
 import android.util.Log;
 
-import com.example.factorynews.model.Article;
-import com.example.factorynews.model.News;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.realm.RealmList;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
