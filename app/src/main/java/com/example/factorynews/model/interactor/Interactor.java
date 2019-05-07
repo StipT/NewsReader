@@ -3,17 +3,18 @@ package com.example.factorynews.model.interactor;
 import com.example.factorynews.model.data.Article;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface Interactor {
-    void storeNewsOnRealm(ArrayList<Article> list);
+    void storeNewsOnRealm(List<Article> list);
 
     ArrayList<Article> getNewsFromRealm();
 
-    void fetchNews(final OnFinishedListener onFinishedListener);
+    void fetchNews(OnFinishedListener onFinishedListener);
 
-    void closeRetrofit();
+    void disposeDisposable();
 
     interface OnFinishedListener {
-        void onFinished(ArrayList<Article> items);
+        void onFinished(List<Article> items);
     }
 }

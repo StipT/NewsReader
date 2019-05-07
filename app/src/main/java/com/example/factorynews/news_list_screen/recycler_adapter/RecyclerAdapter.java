@@ -38,7 +38,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
 
     @Override
     public int getItemCount() {
-        return ((articleList != null) && (articleList.size() !=0) ? articleList.size() : 1);
+        return ((articleList != null) && (articleList.size() != 0) ? articleList.size() : 0);
     }
 
     public void addItems(List<Article> articleList) {

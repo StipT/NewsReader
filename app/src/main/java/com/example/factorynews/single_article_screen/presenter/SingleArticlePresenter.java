@@ -4,4 +4,6 @@ public interface SingleArticlePresenter {
 
     void onCreate();
 
+    void onStop();
+
 }

@@ -1,4 +1,4 @@
-package com.example.factorynews.single_article_screen.pager_adapter;
+package com.example.factorynews.single_article_screen.view;
 
 
 import android.os.Bundle;
@@ -27,9 +27,6 @@ public class PagerFragment extends Fragment {
     private TextView pagerDescription;
     private ImageView pagerImage;
 
-
-    public PagerFragment() {
-    }
 
     public static PagerFragment newInstance(ArrayList<Article> articleList, int i) {
 

@@ -1,11 +1,11 @@
 package com.example.factorynews.single_article_screen.pager_adapter;
 
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.factorynews.model.data.Article;
+import com.example.factorynews.single_article_screen.view.PagerFragment;
 
 import java.util.ArrayList;
 
@@ -28,5 +28,7 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return articleList.size();
     }
+
+
 }
 

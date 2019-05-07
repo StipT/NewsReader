@@ -11,7 +11,6 @@ import android.widget.ProgressBar;
 
 import com.example.factorynews.R;
 import com.example.factorynews.model.data.Article;
-import com.example.factorynews.news_list_screen.OnClickedListener;
 import com.example.factorynews.news_list_screen.presenter.NewsListPresenterImpl;
 import com.example.factorynews.news_list_screen.recycler_adapter.RecyclerAdapter;
 import com.example.factorynews.single_article_screen.view.SingleArticleActivity;
@@ -44,12 +43,7 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
         if (recyclerAdapter == null) {
             recyclerView = findViewById(R.id.recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerAdapter = new RecyclerAdapter(new OnClickedListener() {
-                @Override
-                public void onClicked(int position) {
-                    goToSingleArticleActivity(position);
-                }
-            });
+            recyclerAdapter = new RecyclerAdapter(position -> goToSingleArticleActivity(position));
             recyclerView.setAdapter(recyclerAdapter);
         }
     }

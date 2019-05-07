@@ -1,5 +1,6 @@
 package com.example.factorynews.model.interactor;
 
+
 import android.util.Log;
 
 import com.example.factorynews.model.data.Article;
@@ -7,27 +8,34 @@ import com.example.factorynews.model.data.News;
 import com.example.factorynews.network.FetchNews;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import io.realm.RealmResults;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.ContentValues.TAG;
 
 public class InteractorImpl implements Interactor {
 
+    private static final String TAG = "InteractorImpl";
+
     private Realm realm;
-    private Call<News> call;
+    private Disposable disposable;
+    private CompositeDisposable compositeDisposable;
 
 
     public InteractorImpl() {
         realm = Realm.getDefaultInstance();
+        compositeDisposable = new CompositeDisposable();
     }
 
     @Override
-    public void storeNewsOnRealm(ArrayList<Article> list) {
+    public void storeNewsOnRealm(List<Article> list) {
         realm.beginTransaction();
         realm.deleteAll();
         realm.copyToRealmOrUpdate(list);
@@ -44,40 +52,29 @@ public class InteractorImpl implements Interactor {
     }
 
     @Override
-    public void fetchNews(final OnFinishedListener onFinishedListener) {
+    public void fetchNews(OnFinishedListener onFinishedListener) {
+        Single<Response<News>> singleNews = FetchNews.getNewsApi().getNews();
 
-        call = FetchNews.getNewsApi().getNews();
-        final ArrayList<Article> newsList = new ArrayList<>();
+        disposable =
+                singleNews.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map(response -> {
+                            News news = response.body();
+                            List<Article> articleList = news.getArticles();
+                            storeNewsOnRealm(articleList);
+                            onFinishedListener.onFinished(articleList);
+                            return articleList;
+                        })
+                        .subscribe(success -> Log.d(TAG, "fetchNews: Successful subscription"),
+                                error -> error.printStackTrace());
 
-        call.enqueue(new Callback<News>() {
-            @Override
-            public void onResponse(Call<News> call, Response<News> response) {
-                if (!response.isSuccessful()) {
-                    Log.d(TAG, "onResponse: Response code: " + response.code());
-                } else {
-                    try {
-                        News news = response.body();
-                        newsList.addAll(news.getArticles());
-
-                    } catch (NullPointerException e) {
-                        e.printStackTrace();
-                    }
-                }
-                onFinishedListener.onFinished(newsList);
-            }
-
-            @Override
-            public void onFailure(Call<News> call, Throwable t) {
-                Log.d(TAG, "onFailure: Enqueue failed");
-                t.printStackTrace();
-            }
-        });
+        compositeDisposable.add(disposable);
     }
 
     @Override
-    public void closeRetrofit() {
-        if (!call.isCanceled()) {
-            call.cancel();
+    public void disposeDisposable() {
+        if (!compositeDisposable.isDisposed()) {
+            compositeDisposable.dispose();
         }
     }
 }

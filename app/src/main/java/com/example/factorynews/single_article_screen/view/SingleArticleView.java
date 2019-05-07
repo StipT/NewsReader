@@ -7,4 +7,8 @@ import java.util.ArrayList;
 public interface SingleArticleView {
 
     void viewPagerSetUp(ArrayList<Article> newsList);
+
+    void changeScreen();
+
+    boolean isLastArticle();
 }
