@@ -28,12 +28,14 @@ public class SingleArticleActivity extends AppCompatActivity implements SingleAr
     @Inject
     SingleArticlePresenterImpl singleArticlePresenterImpl;
 
+    @Inject
     CustomPagerAdapter customPagerAdapter;
 
     @Override
     public void viewPagerSetUp(ArrayList<Article> newsList) {
         viewPager = findViewById(R.id.view_pager);
-        customPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), newsList);
+        //customPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager());
+        customPagerAdapter.setItems(newsList);
         viewPager.setAdapter(customPagerAdapter);
 
         int position = getIntent().getIntExtra(ArticleViewHolder.EXTRA_ITEM_POSITION, 0);
@@ -56,7 +58,6 @@ public class SingleArticleActivity extends AppCompatActivity implements SingleAr
     protected void onCreate(Bundle savedInstanceState) {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
-
 
         setContentView(R.layout.activity_single_article);
         singleArticlePresenterImpl.onCreate();

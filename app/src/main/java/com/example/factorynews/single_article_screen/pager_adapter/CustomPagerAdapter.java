@@ -16,12 +16,14 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Article> articleList;
 
     @Inject
-    public CustomPagerAdapter(FragmentManager fm, ArrayList<Article> articleList) {
+    public CustomPagerAdapter(FragmentManager fm) {
         super(fm);
 
-        this.articleList = articleList;
     }
 
+    public void setItems(ArrayList<Article> articleList) {
+        this.articleList = articleList;
+    }
     @Override
     public Fragment getItem(int i) {
         return PagerFragment.newInstance(articleList, i);

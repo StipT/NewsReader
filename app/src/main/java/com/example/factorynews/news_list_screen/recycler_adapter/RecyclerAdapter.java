@@ -13,11 +13,16 @@ import com.example.factorynews.news_list_screen.OnClickedListener;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 
 public class RecyclerAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     private List<Article> articleList;
+
+
     private OnClickedListener onClickedListener;
 
+    @Inject
     public RecyclerAdapter(OnClickedListener onClickedListener) {
         this.onClickedListener = onClickedListener;
     }

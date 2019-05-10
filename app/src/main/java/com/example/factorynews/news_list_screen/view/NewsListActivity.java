@@ -13,7 +13,6 @@ import com.example.factorynews.R;
 import com.example.factorynews.model.data.Article;
 import com.example.factorynews.news_list_screen.presenter.NewsListPresenterImpl;
 import com.example.factorynews.news_list_screen.recycler_adapter.RecyclerAdapter;
-import com.example.factorynews.single_article_screen.view.SingleArticleActivity;
 
 import java.util.List;
 
@@ -29,10 +28,14 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
     @Inject
     NewsListPresenterImpl newsListPresenterImpl;
 
-
-    RecyclerView recyclerView;
-
+    @Inject
     RecyclerAdapter recyclerAdapter;
+
+    @Inject
+    LinearLayoutManager linearLayoutManager;
+
+    @Inject
+    Intent intent;
 
     ProgressBar progressBar;
 
@@ -49,12 +52,9 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
 
     @Override
     public void bindRecyclerView() {
-        if (recyclerAdapter == null) {
-            recyclerView = findViewById(R.id.recycler_view);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerAdapter = new RecyclerAdapter(position -> goToSingleArticleActivity(position));
-            recyclerView.setAdapter(recyclerAdapter);
-        }
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(recyclerAdapter);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
 
     @Override
     public void goToSingleArticleActivity(int position) {
-        Intent intent = new Intent(this, SingleArticleActivity.class);
+        //Intent intent = new Intent(this, SingleArticleActivity.class);
         intent.putExtra(EXTRA_ITEM_POSITION, position);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

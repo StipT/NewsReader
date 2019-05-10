@@ -18,6 +18,7 @@ import io.realm.RealmConfiguration;
 public class MyApplication extends Application implements HasActivityInjector {
 
     public static AppComponent appComponent;
+
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
 
