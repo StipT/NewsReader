@@ -17,15 +17,24 @@ import com.example.factorynews.single_article_screen.view.SingleArticleActivity;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+
 
 public class NewsListActivity extends AppCompatActivity implements NewsListView {
 
     public static final String EXTRA_ITEM_POSITION = "EXTRA_ITEM_POSITION";
 
-    private NewsListPresenterImpl newsListPresenterImpl;
-    private RecyclerView recyclerView;
-    private RecyclerAdapter recyclerAdapter;
-    private ProgressBar progressBar;
+    @Inject
+    NewsListPresenterImpl newsListPresenterImpl;
+
+
+    RecyclerView recyclerView;
+
+    RecyclerAdapter recyclerAdapter;
+
+    ProgressBar progressBar;
 
     @Override
     public void showProgressBar() {
@@ -70,10 +79,10 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_list);
 
-        newsListPresenterImpl = new NewsListPresenterImpl(this);
         newsListPresenterImpl.onCreate();
     }
 

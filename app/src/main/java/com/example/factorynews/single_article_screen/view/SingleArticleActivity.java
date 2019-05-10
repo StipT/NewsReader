@@ -13,14 +13,22 @@ import com.example.factorynews.single_article_screen.presenter.SingleArticlePres
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+
 
 public class SingleArticleActivity extends AppCompatActivity implements SingleArticleView {
 
     public static final int PAGE_LIMIT = 9;
     private static final String TAG = "SingleArticleActivity";
+
     private ViewPager viewPager;
-    private SingleArticlePresenterImpl singleArticlePresenterImpl;
-    private CustomPagerAdapter customPagerAdapter;
+
+    @Inject
+    SingleArticlePresenterImpl singleArticlePresenterImpl;
+
+    CustomPagerAdapter customPagerAdapter;
 
     @Override
     public void viewPagerSetUp(ArrayList<Article> newsList) {
@@ -46,10 +54,11 @@ public class SingleArticleActivity extends AppCompatActivity implements SingleAr
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_article);
 
-        singleArticlePresenterImpl = new SingleArticlePresenterImpl(this);
+
+        setContentView(R.layout.activity_single_article);
         singleArticlePresenterImpl.onCreate();
     }
 

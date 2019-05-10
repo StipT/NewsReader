@@ -5,10 +5,12 @@ import android.util.Log;
 
 import com.example.factorynews.model.data.Article;
 import com.example.factorynews.model.data.News;
-import com.example.factorynews.network.FetchNews;
+import com.example.factorynews.network.NewsApi;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,9 +29,11 @@ public class InteractorImpl implements Interactor {
     private Realm realm;
     private Disposable disposable;
     private CompositeDisposable compositeDisposable;
+    private NewsApi newsApi;
 
-
-    public InteractorImpl() {
+    @Inject
+    public InteractorImpl(NewsApi newsApi) {
+        this.newsApi = newsApi;
         realm = Realm.getDefaultInstance();
         compositeDisposable = new CompositeDisposable();
     }
@@ -53,7 +57,7 @@ public class InteractorImpl implements Interactor {
 
     @Override
     public void fetchNews(OnFinishedListener onFinishedListener) {
-        Single<Response<News>> singleNews = FetchNews.getNewsApi().getNews();
+        Single<Response<News>> singleNews = newsApi.getNews();
 
         disposable =
                 singleNews.subscribeOn(Schedulers.io())

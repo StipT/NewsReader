@@ -9,10 +9,13 @@ import com.example.factorynews.single_article_screen.view.PagerFragment;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 public class CustomPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<Article> articleList;
 
+    @Inject
     public CustomPagerAdapter(FragmentManager fm, ArrayList<Article> articleList) {
         super(fm);
 

@@ -2,10 +2,12 @@ package com.example.factorynews.single_article_screen.presenter;
 
 import android.util.Log;
 
-import com.example.factorynews.model.interactor.InteractorImpl;
+import com.example.factorynews.model.interactor.Interactor;
 import com.example.factorynews.single_article_screen.view.SingleArticleView;
 
 import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,18 +21,19 @@ public class SingleArticlePresenterImpl implements SingleArticlePresenter {
 
 
     private SingleArticleView singleArticleView;
-    private InteractorImpl interactorImpl;
-    CompositeDisposable compositeDisposable;
+    private Interactor interactor;
+    private CompositeDisposable compositeDisposable;
 
-    public SingleArticlePresenterImpl(SingleArticleView singleArticleView) {
+    @Inject
+    public SingleArticlePresenterImpl(SingleArticleView singleArticleView, Interactor interactor) {
         this.singleArticleView = singleArticleView;
-        interactorImpl = new InteractorImpl();
+        this.interactor = interactor;
     }
 
     @Override
     public void onCreate() {
         if (singleArticleView != null) {
-            singleArticleView.viewPagerSetUp(interactorImpl.getNewsFromRealm());
+            singleArticleView.viewPagerSetUp(interactor.getNewsFromRealm());
             intervalScreenChange();
         }
     }
