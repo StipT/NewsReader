@@ -55,6 +55,7 @@ public class InteractorImpl implements Interactor {
         return articleList;
     }
 
+
     @Override
     public void fetchNews(OnFinishedListener onFinishedListener) {
         Single<Response<News>> singleNews = newsApi.getNews();

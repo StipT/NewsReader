@@ -16,9 +16,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class PagerFragment extends Fragment {
 
     public static final String EXTRA_ARTICLE_ITEM = "EXTRA_ARTICLE_ITEM";
