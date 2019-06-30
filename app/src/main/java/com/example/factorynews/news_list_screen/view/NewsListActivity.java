@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 
 import com.example.factorynews.R;
 import com.example.factorynews.model.data.Article;
-import com.example.factorynews.news_list_screen.presenter.NewsListPresenterImpl;
+import com.example.factorynews.news_list_screen.presenter.NewsListPresenter;
 import com.example.factorynews.news_list_screen.recycler_adapter.RecyclerAdapter;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class NewsListActivity extends AppCompatActivity implements NewsListView 
     public static final String EXTRA_ITEM_POSITION = "EXTRA_ITEM_POSITION";
 
     @Inject
-    NewsListPresenterImpl newsListPresenterImpl;
+    NewsListPresenter newsListPresenterImpl;
 
     @Inject
     RecyclerAdapter recyclerAdapter;

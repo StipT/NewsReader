@@ -9,7 +9,7 @@ import com.example.factorynews.R;
 import com.example.factorynews.model.data.Article;
 import com.example.factorynews.news_list_screen.recycler_adapter.ArticleViewHolder;
 import com.example.factorynews.single_article_screen.pager_adapter.CustomPagerAdapter;
-import com.example.factorynews.single_article_screen.presenter.SingleArticlePresenterImpl;
+import com.example.factorynews.single_article_screen.presenter.SingleArticlePresenter;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class SingleArticleActivity extends AppCompatActivity implements SingleAr
     private ViewPager viewPager;
 
     @Inject
-    SingleArticlePresenterImpl singleArticlePresenterImpl;
+    SingleArticlePresenter singleArticlePresenterImpl;
 
     @Inject
     CustomPagerAdapter customPagerAdapter;
